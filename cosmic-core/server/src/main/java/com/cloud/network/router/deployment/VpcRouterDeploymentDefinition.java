@@ -190,6 +190,14 @@ public class VpcRouterDeploymentDefinition extends RouterDeploymentDefinition {
     }
 
     @Override
+    protected void findSecondaryServiceOfferingId() {
+        serviceOfferingId = networkOfferingDao.findById(vpc.getVpcOfferingId()).getSecondaryServiceOfferingId();
+        if (serviceOfferingId == null) {
+            findServiceOfferingId();
+        }
+    }
+
+    @Override
     protected void deployAllVirtualRouters() throws ConcurrentOperationException, InsufficientCapacityException,
             ResourceUnavailableException {
 
