@@ -38,6 +38,8 @@ public class VpcOfferingVO implements VpcOffering {
     Date created;
     @Column(name = "service_offering_id")
     Long serviceOfferingId;
+    @Column(name = "secondary_service_offering_id")
+    Long secondaryServiceOfferingId;
     @Column(name = "supports_distributed_router")
     boolean supportsDistributedRouter = false;
     @Column(name = "supports_region_level_vpc")
@@ -162,6 +164,18 @@ public class VpcOfferingVO implements VpcOffering {
     @Override
     public boolean getRedundantRouter() {
         return this.redundantRouter;
+    }
+
+    public Long getSecondaryServiceOfferingId() {
+        if (secondaryServiceOfferingId != null) {
+            return secondaryServiceOfferingId;
+        } else {
+            return getServiceOfferingId();
+        }
+    }
+
+    public void setSecondaryServiceOfferingId(final Long secondaryServiceOfferingId) {
+        this.secondaryServiceOfferingId = secondaryServiceOfferingId;
     }
 
     public void setState(final State state) {
