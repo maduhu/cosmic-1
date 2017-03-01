@@ -191,7 +191,7 @@ public class VpcRouterDeploymentDefinition extends RouterDeploymentDefinition {
 
     @Override
     protected void findSecondaryServiceOfferingId() {
-        serviceOfferingId = networkOfferingDao.findById(vpc.getVpcOfferingId()).getSecondaryServiceOfferingId();
+        serviceOfferingId = vpcOffDao.findById(vpc.getVpcOfferingId()).getSecondaryServiceOfferingId();
         if (serviceOfferingId == null) {
             findServiceOfferingId();
         }
