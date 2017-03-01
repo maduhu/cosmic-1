@@ -423,11 +423,21 @@ public class NetworkHelperImpl implements NetworkHelper {
             throws InsufficientAddressCapacityException, InsufficientServerCapacityException, InsufficientCapacityException, StorageUnavailableException,
             ResourceUnavailableException {
 
-        final Vpc vpc = routerDeploymentDefinition.getVpc();
-        final List<DomainRouterVO> routers = _routerDao.listByVpcId(vpc.getId());
+        final List<DomainRouterVO> routers;
+        final boolean isRedundant;
+
+        if (routerDeploymentDefinition.isVpcRouter()) {
+            final Vpc vpc = routerDeploymentDefinition.getVpc();
+            routers = _routerDao.listByVpcId(vpc.getId());
+            isRedundant = vpc.isRedundant();
+        } else {
+            final Network guestnetwork = routerDeploymentDefinition.getGuestNetwork();
+            routers = _routerDao.listByNetworkAndRole(guestnetwork.getId(), Role.VIRTUAL_ROUTER);
+            isRedundant = guestnetwork.isRedundant();
+        }
 
         ServiceOfferingVO routerOffering;
-        if (vpc.isRedundant() && routers.size() % 2 == 0) {
+        if (isRedundant && routers.size() % 2 == 0) {
             routerOffering = _serviceOfferingDao.findById(routerDeploymentDefinition.getSecondaryServiceOfferingId());
         } else {
             routerOffering = _serviceOfferingDao.findById(routerDeploymentDefinition.getServiceOfferingId());
