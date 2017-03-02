@@ -230,6 +230,7 @@ import com.cloud.region.ha.GlobalLoadBalancerRule;
 import com.cloud.server.ResourceTag;
 import com.cloud.server.ResourceTag.ResourceObjectType;
 import com.cloud.service.ServiceOfferingVO;
+import com.cloud.service.dao.ServiceOfferingDao;
 import com.cloud.storage.DataStoreRole;
 import com.cloud.storage.DiskOfferingVO;
 import com.cloud.storage.GuestOS;
@@ -318,6 +319,8 @@ public class ApiResponseHelper implements ResponseGenerator {
     private VolumeDao _volumeDao;
     @Inject
     private DataStoreManager _dataStoreMgr;
+    @Inject
+    ServiceOfferingDao _serviceOfferingDao;
     @Inject
     private SnapshotDataStoreDao _snapshotStoreDao;
     @Inject
@@ -2508,7 +2511,16 @@ public class ApiResponseHelper implements ResponseGenerator {
         response.setState(offering.getState().name());
         response.setSupportsDistributedRouter(offering.supportsDistributedRouter());
         response.setSupportsRegionLevelVpc(offering.offersRegionLevelVPC());
-
+        ServiceOffering serviceOffering = _serviceOfferingDao.findById(offering.getServiceOfferingId());
+        if (serviceOffering != null) {
+            response.setServiceOfferingId(serviceOffering.getUuid());
+            response.setServiceOfferingName(serviceOffering.getName());
+        }
+        ServiceOffering secondaryServiceOffering = _serviceOfferingDao.findById(offering.getServiceOfferingId());
+        if (secondaryServiceOffering != null) {
+            response.setServiceOfferingId(secondaryServiceOffering.getUuid());
+            response.setSecondaryServiceOfferingName(secondaryServiceOffering.getName());
+        }
         final Map<Service, Set<Provider>> serviceProviderMap = ApiDBUtils.listVpcOffServices(offering.getId());
         final List<ServiceResponse> serviceResponses = getServiceResponses(serviceProviderMap);
 
