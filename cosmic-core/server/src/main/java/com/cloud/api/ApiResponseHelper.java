@@ -1818,10 +1818,17 @@ public class ApiResponseHelper implements ResponseGenerator {
             so = ApiDBUtils.findDefaultRouterServiceOffering();
         }
         if (so != null) {
-            final ServiceOffering soffering = ApiDBUtils.findServiceOfferingById(so);
-            if (soffering != null) {
-                response.setServiceOfferingId(soffering.getUuid());
+            final ServiceOffering serviceOffering = ApiDBUtils.findServiceOfferingById(so);
+            if (serviceOffering != null) {
+                response.setServiceOfferingId(serviceOffering.getUuid());
+                response.setServiceOfferingName(serviceOffering.getName());
             }
+        }
+
+        ServiceOffering secondaryServiceOffering = _serviceOfferingDao.findById(offering.getServiceOfferingId());
+        if (secondaryServiceOffering != null) {
+            response.setSecondaryServiceOfferingId(secondaryServiceOffering.getUuid());
+            response.setSecondaryServiceOfferingName(secondaryServiceOffering.getName());
         }
 
         if (offering.getGuestType() != null) {
@@ -2518,7 +2525,7 @@ public class ApiResponseHelper implements ResponseGenerator {
         }
         ServiceOffering secondaryServiceOffering = _serviceOfferingDao.findById(offering.getServiceOfferingId());
         if (secondaryServiceOffering != null) {
-            response.setServiceOfferingId(secondaryServiceOffering.getUuid());
+            response.setSecondaryServiceOfferingId(secondaryServiceOffering.getUuid());
             response.setSecondaryServiceOfferingName(secondaryServiceOffering.getName());
         }
         final Map<Service, Set<Provider>> serviceProviderMap = ApiDBUtils.listVpcOffServices(offering.getId());
