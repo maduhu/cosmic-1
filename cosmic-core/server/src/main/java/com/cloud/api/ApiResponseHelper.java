@@ -2523,7 +2523,7 @@ public class ApiResponseHelper implements ResponseGenerator {
             response.setServiceOfferingId(serviceOffering.getUuid());
             response.setServiceOfferingName(serviceOffering.getName());
         }
-        ServiceOffering secondaryServiceOffering = _serviceOfferingDao.findById(offering.getServiceOfferingId());
+        ServiceOffering secondaryServiceOffering = _serviceOfferingDao.findById(offering.getSecondaryServiceOfferingId());
         if (secondaryServiceOffering != null) {
             response.setSecondaryServiceOfferingId(secondaryServiceOffering.getUuid());
             response.setSecondaryServiceOfferingName(secondaryServiceOffering.getName());
