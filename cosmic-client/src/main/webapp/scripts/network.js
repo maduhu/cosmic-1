@@ -1026,11 +1026,12 @@
                             },
                             router: {
                                 title: 'label.vpc.router.details',
+                                multiple: true,
                                 fields: [{
                                     name: {
-                                        label: 'label.name'
-                                    }
-                                }, {
+                                        label: 'label.name',
+                                        header: true
+                                    },
                                     state: {
                                         label: 'label.state'
                                     },
@@ -1070,14 +1071,14 @@
                                     guestipaddress: {
                                         label: 'label.guest.ip'
                                     },
-                                    dns1: {
-                                        label: 'label.dns'
-                                    },
                                     account: {
                                         label: 'label.account'
                                     },
                                     domain: {
                                         label: 'label.domain'
+                                    },
+                                    emptySpace: {
+                                        label: ''
                                     }
                                 }],
 
