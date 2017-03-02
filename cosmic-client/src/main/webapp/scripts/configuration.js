@@ -3365,10 +3365,10 @@
                                     serviceCapabilities: {
                                         label: 'label.service.capabilities'
                                     },
-                                    serviceOfferingName: {
+                                    serviceofferingname: {
                                         label: 'label.service.offering'
                                     },
-                                    secondaryServiceOfferingName: {
+                                    secondaryserviceofferingname: {
                                         label: 'label.service.offering.secondary'
                                     },
                                     tags: {
@@ -3934,10 +3934,10 @@
                                     tags: {
                                         label: 'label.tags'
                                     },
-                                    serviceOfferingName: {
+                                    serviceofferingname: {
                                         label: 'label.service.offering'
                                     },
-                                    secondaryServiceOfferingName: {
+                                    secondaryserviceofferingname: {
                                         label: 'label.service.offering.secondary'
                                     }
                                 }],
