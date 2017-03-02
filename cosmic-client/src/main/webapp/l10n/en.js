@@ -1388,7 +1388,7 @@ var dictionary = {
     "label.server": "Server",
     "label.service.capabilities": "Service Capabilities",
     "label.service.offering": "Service Offering",
-    "label.service.offering": "Service Offering (secondary)",
+    "label.service.offering.secondary": "Service Offering (secondary)",
     "label.service.offering.details": "Service offering details",
     "label.service.state": "Service State",
     "label.services": "Services",
